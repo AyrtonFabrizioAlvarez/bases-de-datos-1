@@ -117,6 +117,8 @@ quedaron en 4FN
 - Todos estos esquemas a su vez se encuentran en 4NF ya que ninguno presenta DM's
 
 ### CONSULTAS
-Consultar como justificar el caso cuando al particionar me quedo con las "similares" (cuando el esquema D6 no va esta bien justificado que tanto DF7 como DF8 son superclave)?  
-Otra duda es como justificar bien el ultimo paso, donde me queda DF9 y DF10 pero como ya "saque" el "cuil" por haber elegido la DF7 ("usuario_id") no entiendo si ambas son superclave, o simplemente como ya "saque" el cuil la DF10 "Deja de valer"?
+- el caso cuando al particionar me quedo con las "similares" (cuando el esquema D6 no va)
+  - esta bien justificado que tanto DF7 como DF8 son superclave? la subrayo?  
+- como justificar bien el ultimo paso, donde me queda DF9 y DF10?
+  - como ya "saque" el "cuil" por haber elegido la DF7 ("usuario_id") no entiendo si ambas son superclave, o simplemente como ya "saque" el cuil la DF10 "Deja de valer"?
 
