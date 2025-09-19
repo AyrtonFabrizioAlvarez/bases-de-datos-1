@@ -1,5 +1,5 @@
-> [!WARNING]
-> Por ahora no esta chequeado
+> [!TIP]
+> Chequeado en consulta de práctica
 
 > [!IMPORTANT]
 > ## Pasos para normalizar hasta 4NF
@@ -44,7 +44,7 @@ quedaron en 4FN
     - S2(<u>#suscripcion</u>, email, nombre_usuario, #plan, nombre_plan, texto_condiciones, precio, <u>email_adicional</u>, nombre_adicional, <u>#contenido</u>, titulo, sinopsis, duracion)  
     - No se pierde información ya que `S1nS2` es clave en `S1`  
     - No se pierden DF's ya que: DF1, DF3, DF4, DF5, DF6 sigue valiendo para `S2`, DF2 sigue valiendo para `S1`    
-    - Podemos entonces decir que `S1` esta en BCNF (no se pierde informacion ni DF's)
+    - Podemos entonces decir que `S1` esta en BCNF ya que la DF2 es superclave
 
 - **El esquema `S2` no esta en BCNF pues existe la DF3 donde {email} no es superclave**  
     - Particiono el esquema considerando la DF3  
@@ -52,7 +52,7 @@ quedaron en 4FN
     - S4(<u>#suscripcion</u>, email, #plan, nombre_plan, texto_condiciones, precio, <u>email_adicional</u>, nombre_adicional, <u>#contenido</u>, titulo, sinopsis, duracion)  
     - No se pierde información ya que `S3nS4` es clave en `S3`  
     - No se pierden DF's ya que: DF3 sigue valiendo para `S3`, DF1, DF4, DF5, DF6 sigue valiendo para `S4`  
-    - Podemos entonces decir que `S3` esta en BCNF (no se pierde informacion ni DF's)  
+    - Podemos entonces decir que `S3` esta en BCNF ya que la DF3 es superclave 
 
 - **El esquema `S4` no esta en BCNF pues existe la DF4 donde {email_adicional} no es superclave**  
     - Particiono el esquema considerando la DF4  
@@ -60,7 +60,7 @@ quedaron en 4FN
     - S6(<u>#suscripcion</u>, email, #plan, nombre_plan, texto_condiciones, precio, <u>email_adicional</u>, <u>#contenido</u>, titulo, sinopsis, duracion)  
     - No se pierde información ya que `S5nS6` es clave en `S5`  
     - No se pierden DF's ya que: DF4 sigue valiendo para `S5`, DF5, DF5 siguen valiendo para `S6`  
-    - Podemos entonces decir que `S5` esta en BCNF (no se pierde informacion ni DF's) 
+    - Podemos entonces decir que `S5` esta en BCNF ya que la DF4 es superclave
 
 - **El esquema `S6` no esta en BCNF pues existe la DF5 donde {#plan} no es superclave**  
     - Particiono el esquema considerando la DF5  
@@ -68,7 +68,7 @@ quedaron en 4FN
     - S8(<u>#suscripcion</u>, email, #plan, <u>email_adicional</u>, <u>#contenido</u>, titulo, sinopsis, duracion)  
     - No se pierde información ya que `S7nS8` es clave en `S7`  
     - No se pierden DF's ya que: DF5 sigue valiendo para `S7`, DF6 sigue valiendo para `S8`
-    - Podemos entonces decir que `S7` esta en BCNF (no se pierde informacion ni DF's)  
+    - Podemos entonces decir que `S7` esta en BCNF ya que la DF5 es superclave  
 
 - **El esquema `S8` no estan en BCNF pues existe la DF6 donde {#contenido} no es superclave**  
     - Particiono el esquema considerando la DF6  
@@ -76,7 +76,7 @@ quedaron en 4FN
     - S10(<u>#suscripcion</u>, email, #plan, <u>email_adicional</u>, <u>#contenido</u>)  
     - No se pierde información ya que `S9nS10` es clave en `S9`  
     - No se pierden DF's ya que: DF6 sigue valiendo para `S9`  
-    - Podemos entonces decir que `S9` esta en BCNF (no se pierde informaciín ni DF's)   
+    - Podemos entonces decir que `S9` esta en BCNF ya que la DF6 es superclave   
  
 - **El esquema `S10` no esta en BCNF pues existe la DF1 donde {#suscripcion} no es superclave**  
     - Particiono el esquema considerando la DF1  
@@ -84,7 +84,7 @@ quedaron en 4FN
     - S12(<u>#suscripcion</u>, <u>email_adicional</u>, <u>#contenido</u>)  
     - No se pierde información ya que `S11nS12` es clave en `S11`  
     - No se pierden DF's ya que: DF1 sigue valiendo para `S11`  
-    - Podemos entonces decir que `S11` esta en BCNF (no se pierde información ni DF's)  
+    - Podemos entonces decir que `S11` esta en BCNF ya que la DF1 es superclave  
     - Podemos entonces decir que `S12` esta en BCNF ya que todos sus atributos forman parte de la clave y cualquier dependencia que se detecte sería trivial
 
 **Particiones en BCNF y Clave Primaria**  
