@@ -30,4 +30,70 @@ quedaron en 4FN
 - En un domicilioHospital de una ciudad existe un único hospital
 
 ### SOLUCIÓN
+
+**DEPENDENCIAS FUNCIONALES**
+- DF1: codHospital -> cantidadHabitaciones, directorHospital, ciudadHospital, domicilioHospital
+- DF2: ciudadHospital, domicilioHospital -> codHospital, cantidadHabitaciones, directorHospital
+- DF3: dniPaciente -> domicilioPaciente, nombreApellidoPaciente
+- DF4: dniPaciente, fechaInicioInternacion -> direccionInternacionPaciente, telefonoInternacionPaciente, codHospital, cantDiasInternacion
+- DF5: dniPaciente, fechaInicioInternacion -> direccionInternacionPaciente, telefonoInternacionPaciente, cantDiasInternacion, ciudadHOspital, domicilioHospital
+- DF1 y DF2 son equivalentes ya que producen el mismo conjunto de atributos
+- DF4, y DF5 son equivalentes ya que producen el mismo conjunto de atributos
+
+**CLAVES CANDIDATAS**
+- CC1: (dniPaciente, fechaInicioInternacion, doctorQueAtiendePaciente, insumoEmpleadoInternacion)
+
+**NORMALIZACION A BCNF**
+- **El esquema `INTERNACION` no se encuentra en BCNF ya que existe al menos la DF1 donde {codHospital} no es superclave**
+  - Particiono tomando la DF1
+  - I1(<u>codHospital</u>, cantidadHabitaciones, directorHospital, <u>ciudadHospital</u>, <u>domicilioHospital</u>)
+  - I2(codHospital, direcciónInternacionPaciente, telefonoInternacionPaciente, <u>dniPaciente</u>, domicilioPaciente, nombreApellidoPaciente, <u>fechaInicioInternacion</u>, cantDiasIntenacion, <u>doctorQueAtiendePaciente</u>, <u>insumoEmpleadoInternación</u>)
+  - No se pierde información ya que `I1nI2` es clave en el esquema `I1`
+  - No se pierden DF's ya que: DF1, DF2 siguen valiendo en `I1`, DF3, DF4, DF5 siguen valiendo en `I2`
+  - Podemos entonces decir que `I1` se encuentra en BCNF ya que solo valen las DF1, DF2 y son superclave
+- **El esquema `I2` no se encuentra en BCNF ya que existe al menos la DF3 donde {dniPaciente} no es superclave**
+  - Particiono el esquema tomando la DF3
+  - I3(<u>dniPaciente</u>, domicilioPaciente, nombreApellidoPaciente)
+  - I4(codHospital, direcciónInternacionPaciente, telefonoInternacionPaciente, <u>dniPaciente</u>, <u>fechaInicioInternacion</u>, cantDiasIntenacion, <u>doctorQueAtiendePaciente</u>, <u>insumoEmpleadoInternación</u>)
+  - No se pierde información ya que `I3nI4` es clave en el esquema `I3`
+  - No se pierden DF's ya que: DF3 sigue valiendo en `I3`, DF4, DF5 siguen valiendo en `I4`
+  - Podemos entonces decir que `I3` se encuentra en BCNF ya que solo vale la DF3 y es superclave
+- **El esquema `I4` no se encuentra en BCNF ya que existe al menos la DF4 donde {dniPaciente, fechaInicioInternacion} no es superclave**
+  - Particiono el esquema tomando la DF4
+  - I5(<u>dniPaciente</u>, <u>fechaInicioInternacion</u>, direccionInternacionPaciente, telefonoInternacionPaciente, codHospital, cantDiasInternacion)
+  - I6(<u>dniPaciente</u>, <u>fechaInicioInternacion</u>, <u>doctorQueAtiendePaciente</u>, <u>insumoEmpleadoInternación</u>)
+  - No se pierde información ya que `I5nI6` es clave en el esquema `I5`
+  - No se pierden DF's ya que: DF4 siguen valiendo en `I5`, DF5 no se pierde ya que puedo encontrar sus determinados a partir de tener el "codHospital"
+  - Podemos entonces decir que `I5` se encuentra en BCNF ya que solo vale la DF4 y es superclave
+  - Podemos entonces decir que `I6` se encuentra en BCNF ya que el conjunto de sus atributos hacen a la CC y cualqueir DF sería trivial
+
+**PARTICIONES EN BCNF Y CLAVE PRIMARIA**
+- I1(<u>codHospital</u>, cantidadHabitaciones, directorHospital, <u>ciudadHospital</u>, <u>domicilioHospital</u>)
+- I3(<u>dniPaciente</u>, domicilioPaciente, nombreApellidoPaciente)
+- I5(<u>dniPaciente</u>, <u>fechaInicioInternacion</u>, direccionInternacionPaciente, telefonoInternacionPaciente, codHospital, cantDiasInternacion)
+- I6(<u>dniPaciente</u>, <u>fechaInicioInternacion</u>, <u>doctorQueAtiendePaciente</u>, <u>insumoEmpleadoInternación</u>)
+- CP{<u>dniPaciente</u>, <u>fechaInicioInternacion</u>, <u>doctorQueAtiendePaciente</u>, <u>insumoEmpleadoInternación</u>}
+
+**DEPENDENCIAS MULTIVALUADAS**
+- I6(<u>dniPaciente</u>, <u>fechaInicioInternacion</u>, <u>doctorQueAtiendePaciente</u>, <u>insumoEmpleadoInternación</u>)
+- DM1: dniPaciente, fechaInicioInternacion ->> insumoEmpleadoInternacion
+- DM2: dniPaciente, fechaInicioInternacion ->> doctorQueAtiendePaciente
+- **Tanto DM1 como DM2, no son triviales en el esquema `I6` por lo tanto no esta en 4NF**
+  - Particiono el esquema tomando la DM1
+  - I7(<u>dniPaciente</u>, <u>fechaInicioInternacion</u>, <u>insumoEmpleadoInternacion</u>)
+  - I8(<u>dniPaciente</u>, <u>fechaInicioInternacion</u>, <u>doctorQueAtiendePaciente</u>)
+  - No se pierde informacion ya que `I7nI8` es clave en el esquema `I7`
+  - No se pierden DF's ya que: DM1 sigue valiendo en `I7`, DM2 sigue valiendo en `I8`
+  - Podemos entonces decir que `I7` se encuentra en 4NF ya que solo vale la DM1 y es trivial en el esquema
+  - Podemos entonces decir que `I8` se encuentra en 4NF ya que solo vale la DM2 y es trivial en el esquema
+
+**ESQUEMAS EN 4NF**
+- I1(<u>codHospital</u>, cantidadHabitaciones, directorHospital, <u>ciudadHospital</u>, <u>domicilioHospital</u>)
+- I3(<u>dniPaciente</u>, domicilioPaciente, nombreApellidoPaciente)
+- I5(<u>dniPaciente</u>, <u>fechaInicioInternacion</u>, direccionInternacionPaciente, telefonoInternacionPaciente, codHospital, cantDiasInternacion)
+- I7(<u>dniPaciente</u>, <u>fechaInicioInternacion</u>, <u>insumoEmpleadoInternacion</u>)
+- I8(<u>dniPaciente</u>, <u>fechaInicioInternacion</u>, <u>doctorQueAtiendePaciente</u>)
+- Los esquemas `I1`, `I3`, `I5` se encuentra en 4NF ya que no existen DM's en ellos
+- Los esquemas `I7`, `I8` se encuentran en 4NF ya que las unicas DM's que valen en ellos son triviales
+
 ### CONSULTAS
