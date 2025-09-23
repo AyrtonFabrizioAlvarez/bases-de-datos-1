@@ -82,8 +82,6 @@ quedaron en 4FN
   - Particiono el esquema tomando la DM1
   - I7(<u>dniPaciente</u>, <u>fechaInicioInternacion</u>, <u>insumoEmpleadoInternacion</u>)
   - I8(<u>dniPaciente</u>, <u>fechaInicioInternacion</u>, <u>doctorQueAtiendePaciente</u>)
-  - No se pierde informacion ya que `I7nI8` es clave en el esquema `I7`
-  - No se pierden DF's ya que: DM1 sigue valiendo en `I7`, DM2 sigue valiendo en `I8`
   - Podemos entonces decir que `I7` se encuentra en 4NF ya que solo vale la DM1 y es trivial en el esquema
   - Podemos entonces decir que `I8` se encuentra en 4NF ya que solo vale la DM2 y es trivial en el esquema
 
@@ -97,3 +95,4 @@ quedaron en 4FN
 - Los esquemas `I7`, `I8` se encuentran en 4NF ya que las unicas DM's que valen en ellos son triviales
 
 ### CONSULTAS
+- consultar cuando no cumple el esquema `I4` porque nose si tengo que aplicar el algoritmo

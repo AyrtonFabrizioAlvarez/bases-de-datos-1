@@ -65,9 +65,7 @@ quedaron en 4FN
   - Particiono tomando la DF5
   - O7(<u>#organizador</u>, <u>fecha_evento</u>, #grupo)
   - O8(<u>#evento</u>, fecha_evento, motivo_evento, #salon, nombre_salon, <u>#persona_staff</u>)
-  - No se pierde informacion ya que `O7nO8` es clave en el esquema `O7`
-  - No se pierden DF's ya que: DF5 sigue valiendo en `O7`, DF1, DF2 siguen valiendo en `O7`
-  - Podemos entonces decir que el esquema `O7` se encuentra en BCNF ya que solo vale la DF5 y es superclave
+  - ACÁ ES DONDE VA EL ALGORITMO????
 - **El esquema `O8` no se encuentra en BCNF ya que existe al menos la DF2 donde {#salon} no es superclave**
   - Partciono el esquema tomando la DF2
   - O9(<u>#salon</u>, nombre_salon)

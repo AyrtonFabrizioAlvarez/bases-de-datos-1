@@ -60,7 +60,7 @@ quedaron en 4FN
   - No se pierde información ya que `D3nD4` es clave en `D3`
   - No se pierden DF's ya que: DF5 sigue valiendo en `D3`, DF1, DF3, DF4, DF6, DF7, DF8, DF9, DF10 siguen valiendo en `D4`
   - Podemos entonces decir que `D3` se encuentra en BCNF ya que DF5 es superclave
-- **El esquema `D4` no se encuentra en BCNF ya que existe al menos la DF6 donde {cuil} no es superclave**
+- **El esquema `D4` no se encuentra en BCNF ya que existe al menos la DF6 donde {cuit} no es superclave**
   - Particiono el esquema tomando la DF6
   - D5(<u>cuit</u>, nombreEmpresa, direccionEmpresa)
   - D6(marca_id, modelo_id, descripModelo, equipo_tipo_id, cuit, usuario_id, apyn, direcciónUsuario, cuil, plan_id, descripPlan, importe, equipo_id, imei, fec_alta, fec_baja, observaciones, <u>línea_id</u>, fec_alta_linea, fec_baja_linea)
@@ -72,37 +72,38 @@ quedaron en 4FN
   - D7(<u>usuario_id</u> <u>cuil</u>, apyn, direccionUsuario)
   - D8(marca_id, modelo_id, descripModelo, equipo_tipo_id, cuit, usuario_id, plan_id, descripPlan, importe, equipo_id, imei, fec_alta, fec_baja, observaciones, <u>línea_id</u>, fec_alta_linea, fec_baja_linea)
   - No se pierde información ya que `D7nD8` es clave en `D7`
-  - No se pierden DF's ya que: DF7, DF8 siguen valiendo en `D8`, DF1, DF3, DF4, DF9, DF10 siguen valiendo en `D8`
-  - Puedo entonces decir que `D7` esta en BCNF ya que DF7 y DF8 son superclave
+  - No se pierden DF's ya que: DF7, DF8 valen ambas en `D7` porque son equivalentes, esto significa que producen el mismo conujnto de atributos. DF1, DF3, DF4, DF9 siguen valiendo en `D8`. ¿Se pierde DF10? No, porque se puede reconstruir a partir de la equivalente (DF9), ya que esa tiene el usuario_id, ycon eso puedo recuperar el cuil. Entonces no se pierde, solamente se invalida -> explicar de acuerdo a al diapo de la exp practica exhaustativamente, usando lso conceptos de transitividad y que dfs se involucran
+  
+  - Puedo entonces decir que `D7` esta en BCNF ya que los determinantes de ambas DF7 y DF8 son superclave del esquema
 - **El esquema `D8` no se encuentra en BCNF ya que existe al menos la DF3 donde {modelo_id} no es superclave**
   - Particiono el esquema tomando la DF3
   - D9(<u>modelo_id</u>, descripModelo, marca_id)
   - D10(modelo_id, equipo_tipo_id, cuit, usuario_id, plan_id, descripPlan, importe, equipo_id, imei, fec_alta, fec_baja, observaciones, <u>línea_id</u>, fec_alta_linea, fec_baja_linea)
   - No se pierde información ya que `D9nD10` es clave en `D9`
-  - No se pierden DF's ya que: DF3 sigue valiendo en `D9`, DF1, DF4, DF9, DF10 siguen valiendo en `D10`
+  - No se pierden DF's ya que: DF3 sigue valiendo en `D9`, DF1, DF4, DF9 siguen valiendo en `D10`
   - Podemos entonces decir que `D9` esta en BCNF ya que DF3 es superclave
 - **El esquema `D10` no se encuentra en BCNF ya que existe al menos la DF1 donde {equipo_id} no es superclave**
   - Particiono el esquema tomando la DF1
   - D11(<u>equipo_id</u>, equipo_tipo_id, modelo_id, imei, fec_alta, fec_baja, observaciones)
   - D12(cuit, usuario_id, plan_id, descripPlan, importe, equipo_id, <u>línea_id</u>, fec_alta_linea, fec_baja_linea)
   - No se pierde información ya que `D11nD12` es clave en `D11`
-  - No se pierden DF's ya que: DF1 sigue valiendo en `D11`, DF4, DF9, DF10 siguen valiendo en `D12`
+  - No se pierden DF's ya que: DF1 sigue valiendo en `D11`, DF4, DF9 siguen valiendo en `D12`
   - Podemos entonces decir que `D11` se encuentra en BCNF ya que DF1 es superclave
 - **El esquema `D11` no se encuentra en BCNF ya que existe al menos la DF4 donde {plan_id} no es superclave**
   - Particiono el esquema tomando la DF4
   - D13(<u>plan_id</u>, cuit, descripPlan, importe)
   - D14(usuario_id, plan_id, equipo_id, <u>línea_id</u>, fec_alta_linea, fec_baja_linea)
   - No se pierde información ya que `D13nD14` es clave en `D13`
-  - No se pierden DF's ya que: DF4 sigue valiendo en `D13`, DF9, DF10 siguen valiendo en `D14`
+  - No se pierden DF's ya que: DF4 sigue valiendo en `D13`, DF9 siguen valiendo en `D14`
   - Podemos entonces decir que `D13` se encuentra en BCNF ya que DF4 es superclave
 - **El esquema `D14` no se encuentra en BCNF ya que existe al menos la DF9 donde {linea_id} no es superclave**
   - Particiono tomando la DF9
   - D15(<u>linea_id</u>, plan_id, fec_alta_linea, fec_baja_linea, equipo_id, usuario_id)
   - D16(<u>línea_id</u>)
   - No se pierde información ya que `D15nD16` es clave en `D15`
-  - No se pierden DF's ya que: DF9 y DF10 siguen valiendo en `D15`
-  - Podemos entonces decir que `D15` se encuentra en BCNF ya que DF9 y DF10 son superclave????????????????
-  - Podemos entonces decir que `D16` se encuentra en BCNF ya que su atributo representa la CC y por lo tanto es trivial
+  - No se pierden DF's ya que: DF9 siguen valiendo en `D15`
+  - Podemos entonces decir que `D15` se encuentra en BCNF ya que el determinande de DF9 es superclave?
+  - Podemos entonces decir que `D16` se encuentra en BCNF ya que su atributo representa la CC y por lo tanto es cualquier df que pueda hallarse es trivial (linea_id -> linea_id)
 
 **ESQUEMAS EN BCNF Y CLAVE PRIMARIA**
 - D1(<u>marca_id</u>, descripMarca)
@@ -117,7 +118,7 @@ quedaron en 4FN
 - Todos estos esquemas a su vez se encuentran en 4NF ya que ninguno presenta DM's
 
 ### CONSULTAS
-- el caso cuando al particionar me quedo con las "similares" (cuando el esquema D6 no va)
+- el caso cuando al particionar me quedo con las "equivalentes" (cuando el esquema D6 no va)
   - esta bien justificado que tanto DF7 como DF8 son superclave? la subrayo?  
 - como justificar bien el ultimo paso, donde me queda DF9 y DF10?
   - como ya "saque" el "cuil" por haber elegido la DF7 ("usuario_id") no entiendo si ambas son superclave, o simplemente como ya "saque" el cuil la DF10 "Deja de valer"?
