@@ -36,7 +36,7 @@ quedaron en 4FN
 - DF2: ciudadHospital, domicilioHospital -> codHospital, cantidadHabitaciones, directorHospital
 - DF3: dniPaciente -> domicilioPaciente, nombreApellidoPaciente
 - DF4: dniPaciente, fechaInicioInternacion -> direccionInternacionPaciente, telefonoInternacionPaciente, codHospital, cantDiasInternacion
-- DF5: dniPaciente, fechaInicioInternacion -> direccionInternacionPaciente, telefonoInternacionPaciente, cantDiasInternacion, ciudadHOspital, domicilioHospital
+- DF5: dniPaciente, fechaInicioInternacion -> direccionInternacionPaciente, telefonoInternacionPaciente, cantDiasInternacion, ciudadHospital, domicilioHospital
 - DF1 y DF2 son equivalentes ya que producen el mismo conjunto de atributos
 - DF4, y DF5 son equivalentes ya que producen el mismo conjunto de atributos
 
@@ -71,7 +71,7 @@ quedaron en 4FN
     - DF4 siguen valiendo en `I5`
     - DF5 no se pierde
       - *(direccionInternacionPaciente, telefonoInternacionPaciente, cantDiasInternacion)* estan en `I5`
-      - *(ciudadHOspital, domicilioHospital)* no se encuentran en `I6` pero no se pierde ya que existe una relacion indirecta a traves de la DF1 donde *(codHospital -> ciudadHOspital, domicilioHospital)*
+      - *(ciudadHospital, domicilioHospital)* no se encuentran en `I6` pero no se pierde ya que existe una relacion indirecta a traves de la DF1 donde *(codHospital -> ciudadHOspital, domicilioHospital)*
   - Podemos entonces decir que `I5` se encuentra en BCNF ya que el determinante de la DF4 es superclave en el esquema
   - Podemos entonces decir que `I6` se encuentra en BCNF ya que el conjunto de sus atributos hacen a la CC y cualquier DF que se detecte seria trivial
 
@@ -103,4 +103,4 @@ quedaron en 4FN
 - Los esquemas `I7`, `I8` se encuentran en 4NF ya que las unicas DM's que valen en ellos son triviales
 
 ### CONSULTAS
-- verificar la justificion cuando el esquema `I4` no cumple BCNF, en el caso donde NO SE PIERDE DF5
+- verificar la justificacion cuando el esquema `I4` no cumple BCNF, en el caso donde NO SE PIERDE DF5
