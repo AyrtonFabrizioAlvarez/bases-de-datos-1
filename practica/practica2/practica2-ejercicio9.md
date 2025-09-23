@@ -37,30 +37,35 @@ quedaron en 4FN
 - CC2: (#torneo, año, puesto, #reglamentacion, descripcion, #auspiciante)
 
 **NORMALIZACION A BCNF**
-- **El esquema `TORNEOS` no cumple BCNF pues existe al menos la DF2 donde {#equipo} no es superclave**
+- **El esquema `TORNEOS` no cumple BCNF pues existe al menos el determinante de la DF2 donde {#equipo} no es superclave**
   - Particiono el esquema tomando la DF2
   - T1(<u>#equipo</u>, nombre_equipo, estadio_equipo)
   - T2(<u>#torneo</u>, nombre_torneo, <u>año</u>, <u>#equipo</u>, <u>puesto</u>, <u>#reglamentacion</u>, <u>descripcion</u>, <u>#auspiciante</u>)
   - No se pierde información ya que `T1∩T2` es clave en `T1`
-  - No se pierden DF's ya que: DF2 sigue valiendo para `T2`, DF1, DF3, DF4 siguen valiendo para `T2`
-  - Podemos entonces decir que `T2` esta en BCNF ya que la DF2 es superclave
-- **El esquema `T2` no se encuentra en BCNF ya que existe la DF1 donde {#torneo} no es superclave**
+  - No se pierden DF's ya que:
+    - DF2 sigue valiendo para `T2`
+    - DF1, DF3, DF4 siguen valiendo para `T2`
+  - Podemos entonces decir que `T2` esta en BCNF ya que el determinante de la DF2 es superclave en el esquema
+- **El esquema `T2` no se encuentra en BCNF ya que existe el determinante de la DF1 donde {#torneo} no es superclave**
   - Particiono el esquema tomando la DF1
   - T3(<u>#torneo</u>, nombre_torneo)
   - T4(<u>#torneo</u>, <u>año</u>, <u>#equipo</u>, <u>puesto</u>, <u>#reglamentacion</u>, <u>descripcion</u>, <u>#auspiciante</u>)
   - No se pierde información ya que `T3∩T4` es clave en `T3`
-  - No se pierden DF's ya que: DF1 sigue valiendo en `T3`, DF3, DF4, siguen valiendo en `T4`
-  - Podemos entonces decir que `T3` se encuentra en BCNF ya que la DF1 es superclave
-- **El esquema `T4` no se encuentra en BCNF ya que existe al menos la DF3 donde {#torneo, #equipo, año} no es superclave**
+  - No se pierden DF's ya que:
+    - DF1 sigue valiendo en `T3`
+    - DF3, DF4, siguen valiendo en `T4`
+  - Podemos entonces decir que `T3` se encuentra en BCNF ya que el determinante de la DF1 es superclave en el esquema
+- **El esquema `T4` no se encuentra en BCNF ya que existe al menos el determinante de la DF3 donde {#torneo, #equipo, año} no es superclave**
   - Particiono el esquema tomando la DF3
-  - T5(<u>#torneo</u>, <u>#equipo</u>, <u>año</u>, puesto)
+  - T5(<u>#torneo</u>, <u>#equipo</u>, <u>año</u>, <u>puesto</u>)
   - T6(<u>#torneo</u>, <u>año</u>, <u>#equipo</u>, <u>#reglamentacion</u>, <u>descripcion</u>, <u>#auspiciante</u>)
   - No se pierde información ya que `T5∩T6` es clave en `T5`
-  - No se pierden DF's ya que: DF3 sigue valiendo para `T5`
-  - Podemos entonces decir que `T5` se encuentra en BCNF ya que la DF3 es superclave
+  - No se pierden DF's ya que:
+    - DF3, DF4 siguen valiendo para `T5` ya que ambas DF son equivalentes y ambas producen el mismo conjunto de atributos
+  - Podemos entonces decir que `T5` se encuentra en BCNF ya que los determinantes de las DF3 y DF4 son superclave en el esquema
   - Podemos entonces decir que `T6` se encuentra en BCNF ya que todos los atributos forman la `CC1` y toda DF es trivial
 
-**ESQUEMAS EN BCN Y CLAVE PRIMARIA**
+**ESQUEMAS EN BCNF Y CLAVE PRIMARIA**
 - T1(<u>#equipo</u>, nombre_equipo, estadio_equipo)
 - T3(<u>#torneo</u>, nombre_torneo)
 - T5(<u>#torneo</u>, <u>#equipo</u>, <u>año</u>, puesto)
@@ -76,22 +81,16 @@ quedaron en 4FN
   - Particiono tomando la DM1
   - T7(<u>#torneo</u>, <u>año</u>, #auspiciante)
   - T8(<u>#torneo</u>, <u>año</u>, <u>#equipo</u>, <u>#reglamentacion</u>, <u>descripcion</u>)
-  - No se pierde información ya que `T7∩T8` es clave en `T7`
-  - No se pierden DM's ya que, DM1 sigue valiendo para `T7`, DM2, DM3 siguen valiendo para `T8`
   - Puedo entonces decir que `T7` se encuentra en 4NF ya que solo vale la DM1 y es trivial
 - **Tanto DM2, como DM3 no son triviales, entonces `T8` no está en 4NF**
   - Particiono el esquema tomando la DM2
   - T9(<u>#torneo</u>, <u>año</u>, #equipo)
   - T10(<u>#torneo</u>, <u>año</u>, <u>#reglamentacion</u>, <u>descripcion</u>)
-  - No se pierde información ya que `T9∩T10` es clave en `T9`
-  - No se pierden DM's ya que: DM2 sigue valiento para `T9`, DM3 sigue valiendo para `T10`
   - Podemos entonces decir que `T9` esta en 4NF ya que solo vale la DM2 y es trivial
 - **DM3 no es trivial, entonces `T10` no está en 4NF**
   - Particiono el esquema tomando la DM3
   - T11(<u>#torneo</u>, <u>año</u>, #reglamentacion)
   - T12(<u>#torneo</u>, <u>año</u>, <u>descripcion</u>)
-  - No se pierde información ya que `T11∩T12` es clave en `T11`
-  - No se pierden DM's ya que: DM3 vale en `T11`
   - Podemos entonces decir que `T11` está en 4NF ya que solo vale la DM3 y es trivial
   - Podemos entonces decir que `T12` está en 4NF ya que no posee DM's
 
@@ -103,9 +102,9 @@ quedaron en 4FN
 - T9(<u>#torneo</u>, <u>año</u>, #equipo)
 - T11(<u>#torneo</u>, <u>año</u>, #reglamentacion)
 - T12(<u>#torneo</u>, <u>año</u>, <u>descripcion</u>)
-- Tantp T1, T3, T5, se encuentran en 4NF porque no poseen DM's
+- Los esquemas `T1`, `T3`, `T5` se encuentran en 4NF ya que ninguno presenta DM
+- Los esquemas `T7`, `T9`, `T11`, `T12` se encuentran en 4NF ya que solo poseen DM's triviales
+
 
 ### CONSULTAS
-
-
-
+- esta bien la ultima aclaracion cuando el esquema `T4` no cumple BCNF?

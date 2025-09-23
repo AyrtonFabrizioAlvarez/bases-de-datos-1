@@ -1,6 +1,3 @@
-> [!WARNING]
-> Por ahora no esta chequeado
-
 > [!IMPORTANT]
 > ## Pasos para normalizar hasta 4NF
 > 1. Encontrar las dependencias funcionales
@@ -14,7 +11,6 @@
 > 6. Expresar las particiones resultantes que quedaron en 4FN o Explicar porque las particiones descriptas en el ítem 4 (excepto la analizada en el punto 5)
 quedaron en 4FN
 > 7. Indicar que particiones en 4FN quedan en el esquema final (que no sean proyecciones de atributos claves de otras particiones en 4FN)
-
 
 ## 8. 
 `FESTIVALES (#festival, denominacion_festival, localidad, cuil_musico, nombre_musico, fecha_nacimiento, #banda, nombre_banda, estilo_musical, #tema, nombre_tema, duracion, instrumento, cuil_auspiciante, url_plataforma_entradas, #sponsor)`  
@@ -41,42 +37,51 @@ instrumento lo hizo.
 CC1: (#festival, #banda, cuil_musico, #tema, cuil_auspiciante, url_plataforma_entradas, #sponsor)
 
 **NORMALIZACION A BCNF**  
-- **El esquema `FESTIVALES` no cumple con BCNF ya que existe al menos la DF1 donde {#festival} no es superclave**
+- **El esquema `FESTIVALES` no cumple con BCNF ya que existe al menos el determinante de la DF1 donde {#festival} no es superclave**
   - Particiono el esquema tomando la DF1
   - F1(<u>#festival</u>, denominacion_festival, localidad)  
   - F2(<u>#festival</u>, <u>cuil_musico</u>, nombre_musico, fecha_nacimiento, <u>#banda</u>, nombre_banda, estilo_musical, <u>#tema</u>, nombre_tema, duracion, instrumento, <u>cuil_auspiciante</u>, <u>url_plataforma_entradas</u>, <u>#sponsor</u>)
   - No se pierde información ya que `F1∩F2` es clave en `F1`
-  - No se pierden DF's ya que: DF1 sigue valiendo para `F1`, DF2, DF3, DF4, DF5 siguen valiendo para `F2`
-  - Podemos entonces decir que `F1` esta en BCNF ya que la DF1 es superclave
-- **El esquema `F2` no cumple con BCNF ya que existe al menos la DF2 donde {#banda} no es superclave**
+  - No se pierden DF's ya que:
+    - DF1 sigue valiendo para `F1`
+    - DF2, DF3, DF4, DF5 siguen valiendo para `F2`
+  - Podemos entonces decir que `F1` esta en BCNF ya que el determinante de la DF1 es superclave en el esquema
+- **El esquema `F2` no cumple con BCNF ya que existe al menos el determinante de la DF2 donde {#banda} no es superclave**
   - Particiono el esquema tomando la DF2
   - F3(<u>#banda</u>, nombre_banda, estilo_musical)
   - F4(<u>#festival</u>, <u>cuil_musico</u>, nombre_musico, fecha_nacimiento, <u>#banda</u>, <u>#tema</u>, nombre_tema, duracion, instrumento, <u>cuil_auspiciante</u>, <u>url_plataforma_entradas</u>, <u>#sponsor</u>)
   - No se pierde informacion ya que `F3∩F4` es clave en `F3`
-  - No se pierden DF's ya que: DF2 sigue valiendo para `F3`, DF3, DF4, DF5 siguen valiendo para `F4`
-  - Podemos entonces decir que `F3` esta en BCNF ya que la DF2 es superclave
-- **El esquema `F4` no cumple con BCNF ya que existe al menos la DF3 donde {cuil_musico} no es superclave**
+  - No se pierden DF's ya que:
+    - DF2 sigue valiendo para `F3`
+    - DF3, DF4, DF5 siguen valiendo para `F4`
+  - Podemos entonces decir que `F3` esta en BCNF ya que el determinante de la DF2 es superclave en el esquema
+- **El esquema `F4` no cumple con BCNF ya que existe al menos el determinante de la DF3 donde {cuil_musico} no es superclave**
   - Particiono el esquema tomando la DF3
   - F5(<u>cuil_musico</u>, nombre_musico, fecha_nacimiento)
   - F6(<u>#festival</u>, <u>cuil_musico</u>, <u>#banda</u>, <u>#tema</u>, nombre_tema, duracion, instrumento, <u>cuil_auspiciante</u>, <u>url_plataforma_entradas</u>, <u>#sponsor</u>)
   - No se pierde información ya que `F5∩F6` es clave en `F5`
-  - No se pierden las DF's ya que: DF3 sigue valiendo para `F5`, DF4, DF5 siguen valiendo para `F6`
-  - Podemos entonces decir que `F5` esta en BCNF ya que la DF3 es superclave
-- **El esquema `F6` no cumple con BCNF ya que existe al menos la DF4 donde {#festival, #banda, #tema} no es superclave**
+  - No se pierden las DF's ya que:
+    - DF3 sigue valiendo para `F5`
+    - DF4, DF5 siguen valiendo para `F6`
+  - Podemos entonces decir que `F5` esta en BCNF ya que el determinante de la DF3 es superclave en el esquema
+- **El esquema `F6` no cumple con BCNF ya que existe al menos el determinante de la DF4 donde {#festival, #banda, #tema} no es superclave**
   - Particiono el esquema tomando la DF4
   - F7(<u>#festival</u>, <u>#banda</u>, <u>#tema</u>, nombre_tema, duracion)
   - F8(<u>#festival</u>, <u>cuil_musico</u>, <u>#banda</u>, <u>#tema</u>, instrumento, <u>cuil_auspiciante</u>, <u>url_plataforma_entradas</u>, <u>#sponsor</u>)
   - No se pierde información ya que `F7∩F8` es clave en `F7`
-  - No se pierden DF's ya que: DF4 sigue valiendo en `F7`, DF5 sigue valiendo en `F8`
-  - Podemos entonces decir que `F7` esta en BCNF ya que la DF4 es superclave
-- **El esquema `F8` no cumple con BCNF ya que existe al menos la DF5 donde {} no es superclave**
+  - No se pierden DF's ya que:
+    - DF4 sigue valiendo en `F7`
+    - DF5 sigue valiendo en `F8`
+  - Podemos entonces decir que `F7` esta en BCNF ya que el determinante de la DF4 es superclave en el esquema
+- **El esquema `F8` no cumple con BCNF ya que existe al menos el determinante de la DF5 donde {<u>#festival</u>, <u>#banda</u>, <u>#tema</u>, <u>cuil_musico</u>} no es superclave**
   - Particiono el esquema tomando la DF5
   - F9(<u>#festival</u>, <u>#banda</u>, <u>#tema</u>, <u>cuil_musico</u>, instrumento)
   - F10(<u>#festival</u>, <u>cuil_musico</u>, <u>#banda</u>, <u>#tema</u>, <u>cuil_auspiciante</u>, <u>url_plataforma_entradas</u>, <u>#sponsor</u>)
   - No se pierde información ya que `F9∩F10` es clave en `F9`
-  - No se pierden DF's ya que : DF5 sigue valiendo para `F9`
-  - Podemos entonces decir que `F9` se encuentra en BCNF ya que la DF5 es superclave
-  - Podemos entonces decir que `F10` se encuentra en BCNF ya que todos sus atributos forman la CC y ademas cualqueir dependencia sería trivial
+  - No se pierden DF's ya que :
+    - DF5 sigue valiendo para `F9`
+  - Podemos entonces decir que `F9` se encuentra en BCNF ya que el determinante de la DF5 es superclave en el esquema
+  - Podemos entonces decir que `F10` se encuentra en BCNF ya que todos sus atributos forman la CC y ademas cualquier dependencia que se detecte es trivial
 
 **ESQUEMAS EN BCNF Y CLAVE PRIMARIA**  
 - F1(<u>#festival</u>, denominacion_festival, localidad)  
@@ -96,22 +101,16 @@ CC1: (#festival, #banda, cuil_musico, #tema, cuil_auspiciante, url_plataforma_en
   - Particiono el esquema tomando la DM1
   - F11(<u>#festival</u>, cuil_auspiciante)
   - F12(<u>#festival</u>, <u>cuil_musico</u>, <u>#banda</u>, <u>#tema</u>, <u>url_plataforma_entradas</u>, <u>#sponsor</u>)
-  - No se pierde información ya que `F11∩F12` es clave en `F11`
-  - No se pierden DM's ya que: DM1 sigue valiendo para `F11`, DM2, DM3 siguen valiendo para `F12`
   - Podemos entonces decir que `F11` se encuentra en 4NF ya que solo vale la DM1 y es trivial
 - **Tanto DM2, DM3 no son triviales, por lo tanto `F11` no se encuentra en 4NF**
   - Particiono el esquema tomando la DM2
   - F13(<u>#festival</u>, url_plataforma_entradas)
   - F14(<u>#festival</u>, <u>cuil_musico</u>, <u>#banda</u>, <u>#tema</u>, <u>#sponsor</u>)
-  - No se pierden DM ya que `F13∩F14` es clave en `F13`
-  - No se pierden DM's ya que: DM2 sigue valiendo para `F13`, DM3 sigue valiendo para `F14`
   - Podemos entonces decir que `F13` se encuentra en 4NF ya que solo vale la DM2 y es trivial
 - **DM3 no es trivial, por lo tanto `F14` no se encuentra en 4NF**
   - Particiono el esquema tomando la DM3
   - F15(<u>#festival</u>, #sponsor)
   - F16(<u>#festival</u>, <u>cuil_musico</u>, <u>#banda</u>, <u>#tema</u>)
-  - No se pierde información ya que `F15∩F16` es clave en `F15`
-  - No se pierden DM's ya que: DM3 sigue valiendo en `F15`
   - Podemos entonces decir que `F15` se encuentra en 4NF ya que solo vale la DM3 y es trivial
   - Podemos entonces decir que `F16` se encuentra en 4NF ya que no posee DM
 
@@ -125,9 +124,5 @@ CC1: (#festival, #banda, cuil_musico, #tema, cuil_auspiciante, url_plataforma_en
 - F13(<u>#festival</u>, url_plataforma_entradas)
 - F15(<u>#festival</u>, #sponsor)
 - F16(<u>#festival</u>, <u>cuil_musico</u>, <u>#banda</u>, <u>#tema</u>)
-
-**PROYECCIONES**  
-
-
-### CONSULTAS
-Consultar las justificaciones, sobre todo las de DM's
+- Los esquemas `F1`, `F3`, `F5`, `F7`, `F9`, se encuentran en 4NF ya que ninguno presenta DM
+- Los esquemas `F11`, `F13`, `F15`, `F16` se encuentran en 4NF ya que solo poseen DM's triviales

@@ -1,6 +1,3 @@
-> [!TIP]
-> Chequeado en consulta de práctica
-
 > [!IMPORTANT]
 > ## Pasos para normalizar hasta 4NF
 > 1. Encontrar las dependencias funcionales
@@ -38,56 +35,69 @@ quedaron en 4FN
 - CC1:(#medicion, #parametro, #instrumento, dominio_vehiculo)
 
 **3. Verificacion de los esquemas en BCNF**  
-- **El esquema `MEDICION_AMBIENTAL` no esta en BCNF, pues existe la DF2 tal que {#medicion, #parametro} no es parte de la superclave**
+- **El esquema `MEDICION_AMBIENTAL` no esta en BCNF, pues existe el determinante de la DF2 tal que {#medicion, #parametro} no es parte de la superclave**
     - Particiono el esquema tomando la DF2  
     - MA1(<u>#medicion</u>, <u>#parametro<u>, valor_medicion)  
     - MA2(<u>#medicion</u>, #pozo, <u>#parametro</u>, fecha_medicion, cuil_operario, <u>#instrumento</u>, nombre_parametro, valor_ref, descripcion_pozo, fecha_perforacion, apellido_operario, nombre_operario, fecha_nacimiento, marca_instrumento, modelo_instrumento, <u>dominio_vehiculo</u>, fecha_adquisicion)  
     - No se pierde información ya que `MA1nMA2` es clave en `MA1`
-    - No se pierden DF's ya que: DF2 sigue valiento para `MA1`, DF1, DF3, DF4, DF5, DF6, DF7 siguen valiento para `MA2`
-    - Podemos entonces decir que `MA1` esta en BCNF ya que la DF2 es superclave  
-- **El esquema `MA2` no esta en BCNF, pues existe la DF3 tal que {#parametro} no es parte de la superclave**
+    - No se pierden DF's ya que:
+      - DF2 sigue valiento para `MA1`
+      - DF1, DF3, DF4, DF5, DF6, DF7 siguen valiento para `MA2`
+    - Podemos entonces decir que `MA1` esta en BCNF ya que el determinante de la DF2 es superclave en el esquema
+- **El esquema `MA2` no esta en BCNF, pues existe el determinante de la DF3 tal que {#parametro} no es parte de la superclave**
     - Particiono el esquema tomando la DF3
     - MA3(<u>#parametro<u>, nombre_parametro, valor_ref)  
     - MA4(<u>#medicion</u>, #pozo, <u>#parametro</u>, fecha_medicion, cuil_operario, <u>#instrumento</u>, descripcion_pozo, fecha_perforacion, apellido_operario, nombre_operario, fecha_nacimiento, marca_instrumento, modelo_instrumento, <u>dominio_vehiculo</u>, fecha_adquisicion)  
     - No se pierde información ya que `MA3nMA4` es clave en `MA3`
-    - No se pierden DF's ya que: DF3 sigue valiendo para `MA3`, DF1, DF4, DF5, DF6, DF7 siguen valiendo para `MA3`
-    - Podemos entonces decir que `MA3` esta en BCNF ya que la DF3 es superclave
-- **El esquema `MA4` no esta en BCNF ya que existe la DF4 tal que {#parametro} no es parte de la superclave**
+    - No se pierden DF's ya que:
+      - DF3 sigue valiendo para `MA3`
+      - DF1, DF4, DF5, DF6, DF7 siguen valiendo para `MA3`
+    - Podemos entonces decir que `MA3` esta en BCNF ya que el determinante de la DF3 es superclave en el esquema
+- **El esquema `MA4` no esta en BCNF ya que existe el determinante de la DF4 tal que {#parametro} no es parte de la superclave**
   - Particiono el esquema tomando la DF4
   - MA5(<u>#instrumento</u>, marca_instrumento, modelo_instrumento)  
   - MA6(<u>#medicion</u>, #pozo, <u>#parametro</u>, fecha_medicion, cuil_operario, <u>#instrumento</u>, descripcion_pozo, fecha_perforacion, apellido_operario, nombre_operario, fecha_nacimiento, <u>dominio_vehiculo</u>, fecha_adquisicion)  
   - No se pierde informacion ya que `MA5nMA6` es clave en `MA5`
-  - No se pierden DF's ya que: DF4 sigue valiendo para `MA5`, DF1, DF5, DF6, DF7 siguen valiendo para `MA5`
-  - Podemos entonces decir que `MA5` esta en BCNF ya que la DF4 es superclave  
-- **El esquema `MA6` no esta en BCNF ya que existe la DF5 tal que {cuil_operario} no es parte de la superclave**    
+  - No se pierden DF's ya que:
+    - DF4 sigue valiendo para `MA5`
+    - DF1, DF5, DF6, DF7 siguen valiendo para `MA5`
+  - Podemos entonces decir que `MA5` esta en BCNF ya que el determinante de la DF4 es superclave en el esquema  
+- **El esquema `MA6` no esta en BCNF ya que existe el determinante de la DF5 tal que {cuil_operario} no es parte de la superclave**    
     - Particiono el esquema tomando la DF5
     - MA7(<u>cuil_operario</u>, apellido_operario, nombre_operario, fecha_nacimiento)  
     - MA8(<u>#medicion</u>, #pozo, <u>#parametro</u>, fecha_medicion, cuil_operario, <u>#instrumento</u>, descripcion_pozo, fecha_perforacion, <u>dominio_vehiculo</u>, fecha_adquisicion)  
     - No se pierde informacion ya que `MA7nMA8` es clave en `MA7`
-    - No se pierden DF's ya que: DF5 sigue valiendo para `MA7`, DF1, DF6, DF7 siguen valiendo para `MA8`
-    - Podemos entonces decir qeu `MA7` esta en BCNF ya que la DF5 es superclave
-- **El esquema `MA8` no esta en BCNF ya que existe la DF6 tal que {dominio_vehiculo} no es parte de la superclave**  
+    - No se pierden DF's ya que:
+      - DF5 sigue valiendo para `MA7`
+      - DF1, DF6, DF7 siguen valiendo para `MA8`
+    - Podemos entonces decir qeu `MA7` esta en BCNF ya que el determinante de la DF5 es superclave en el esquema
+- **El esquema `MA8` no esta en BCNF ya que existe el determinante de la DF6 tal que {dominio_vehiculo} no es parte de la superclave**  
     - Particiono el esquema tomando la DF6
     - MA9(<u>dominio_vehiculo</u>, fecha_adquisicion)  
     - MA10(<u>#medicion</u>, #pozo, <u>#parametro</u>, fecha_medicion, cuil_operario, <u>#instrumento</u>, descripcion_pozo, fecha_perforacion, <u>dominio_vehiculo</u>)  
     - No se pierde informacion ya que `MA9nMA10` es clave en `MA9`
-    - No se pierden DF's ya que: DF6 sigue Valiendo para `MA9` DF1, DF7 sigue valiendo para `MA10`
-    - Podemos entonces decir que `MA9` esta en BCNF ya que la DF6 es superclave
-- **El esquema `MA10` no se encuentra en BCNF ya que existe la DF7 tal que {#pozo} no es parte de la superclave**  
+    - No se pierden DF's ya que:
+      - DF6 sigue Valiendo para `MA9`
+      - DF1, DF7 sigue valiendo para `MA10`
+    - Podemos entonces decir que `MA9` esta en BCNF ya que el determinante de la DF6 es superclave en el esquema
+- **El esquema `MA10` no se encuentra en BCNF ya que existe el determinante de la DF7 tal que {#pozo} no es parte de la superclave**  
     - Particiono el esquema tomando la DF7
     - MA11(<u>#pozo</u>, descripcion_pozo, fecha_perforacion)  
     - MA12(<u>#medicion</u>, #pozo, <u>#parametro</u>, fecha_medicion, cuil_operario, <u>#instrumento</u>, <u>dominio_vehiculo</u>)
     - No se pierde informacion ya que `MA11nMA12` es clave en `MA11`
-    - No se pierden DF's ya que la DF7 sigue valiendo para `MA11`, DF1 sigue valiendo para `MA12`
-    - Podemos entonces decir que `MA11` esta en BCNF ya que la DF7 es superclave
-- **El esquema `MA12` no eata en BCNF ya que existe la DF1 tal que {#medicion} no es parte de la superclave**
+    - No se pierden DF's ya que:
+      - DF7 sigue valiendo para `MA11`
+      - DF1 sigue valiendo para `MA12`
+    - Podemos entonces decir que `MA11` esta en BCNF ya que el determinante de la DF7 es superclave en el esquema
+- **El esquema `MA12` no eata en BCNF ya que existe el determinante de la DF1 tal que {#medicion} no es parte de la superclave**
     - Particiono el esquema tomando la DF1
     - MA13(<u>#medicion</u>, cuil_operario,  #pozo, fecha_medicion)  
     - MA14(<u>#medicion</u>, <u>#parametro</u>, <u>#instrumento</u>, <u>dominio_vehiculo</u>)  
     - No se pierde informacion ya que `MA13nMA14` es clave en `MA13`
-    - No se pierden DF's ya que la DF1 sigue valiendo para `MA13`
+    - No se pierden DF's ya que:
+      - DF1 sigue valiendo para `MA13`
     - Podemos entonces decir que `MA13` esta en BCNF ya que la DF1 es superclave
-    - Podemos entonces decir que `MA14` esta en BCNF ya que sus atributos forman la clave y cualquier dependencia es trivial
+    - Podemos entonces decir que `MA14` esta en BCNF ya que sus atributos forman la clave y cualquier dependencia que se detecte es trivial
 
 **4. Particiones en BCNF y Clave Primaria**  
 - MA1(<u>#medicion</u>, <u>#parametro<u>, valor_medicion)  
@@ -104,7 +114,7 @@ quedaron en 4FN
 - MA14(<u>#medicion</u>, <u>#parametro</u>, <u>#instrumento</u>, <u>dominio_vehiculo</u>)  
 - DM1: #medicion ->> #parametro, #instrumento
 - DM2: vacío ->> dominio_vehiculo
-- tanto DM1 como DM2 no son DM triviales, por lo tanto `MA14` no esta en 4NF
+- **Tanto DM1 como DM2 no son DM triviales, por lo tanto `MA14` no esta en 4NF**
     - Particiono el esquema tomando la DM1
     - MA15(<u>#medicion</u>, <u>#parametro</u>, <u>#instrumento</u>)
     - MA16(<u>dominio_vehiculo</u>)
@@ -118,10 +128,8 @@ quedaron en 4FN
 - MA7(<u>cuil_operario</u>, apellido_operario, nombre_operario, fecha_nacimiento)  
 - MA9(<u>dominio_vehiculo</u>, fecha_adquisicion)  
 - MA11(<u>#pozo</u>, descripcion_pozo, fecha_perforacion)
-- MA13(<u>#medicion</u>, cuil_operario,  #pozo, fecha_medicion)  
-- Todas estos esquemas se encuentran en 4NF ya que ninguno presenta DM
-
-
-### CONSULTAS
-
-
+- MA13(<u>#medicion</u>, cuil_operario,  #pozo, fecha_medicion)
+- MA15(<u>#medicion</u>, <u>#parametro</u>, <u>#instrumento</u>)
+- MA16(<u>dominio_vehiculo</u>)
+- Los esquemas `MA1`, `MA3`, `MA5`, `MA7`, `MA9`, `MA11`, `MA13`, se encuentran en 4NF ya que ninguno presenta DM
+- Los esquemas `MA15`, `MA16` se encuentran en 4NF ya que solo poseen DM's triviales

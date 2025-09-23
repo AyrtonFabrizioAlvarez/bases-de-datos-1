@@ -44,28 +44,36 @@ quedaron en 4FN
 - CC1: (dniPaciente, fechaInicioInternacion, doctorQueAtiendePaciente, insumoEmpleadoInternacion)
 
 **NORMALIZACION A BCNF**
-- **El esquema `INTERNACION` no se encuentra en BCNF ya que existe al menos la DF1 donde {codHospital} no es superclave**
+- **El esquema `INTERNACION` no se encuentra en BCNF ya que existe al menos el determinante de la DF1 donde {codHospital} no es superclave**
   - Particiono tomando la DF1
   - I1(<u>codHospital</u>, cantidadHabitaciones, directorHospital, <u>ciudadHospital</u>, <u>domicilioHospital</u>)
   - I2(codHospital, direcciónInternacionPaciente, telefonoInternacionPaciente, <u>dniPaciente</u>, domicilioPaciente, nombreApellidoPaciente, <u>fechaInicioInternacion</u>, cantDiasIntenacion, <u>doctorQueAtiendePaciente</u>, <u>insumoEmpleadoInternación</u>)
   - No se pierde información ya que `I1nI2` es clave en el esquema `I1`
-  - No se pierden DF's ya que: DF1, DF2 siguen valiendo en `I1`, DF3, DF4, DF5 siguen valiendo en `I2`
-  - Podemos entonces decir que `I1` se encuentra en BCNF ya que solo valen las DF1, DF2 y son superclave
-- **El esquema `I2` no se encuentra en BCNF ya que existe al menos la DF3 donde {dniPaciente} no es superclave**
+  - No se pierden DF's ya que:
+    - DF1, DF2 siguen valiendo en `I1`
+    - DF3, DF4, DF5 siguen valiendo en `I2`
+  - Podemos entonces decir que `I1` se encuentra en BCNF ya que los determinantes de las DF1, DF2 son superclave en el esquema
+- **El esquema `I2` no se encuentra en BCNF ya que existe al menos el determinante de la DF3 donde {dniPaciente} no es superclave**
   - Particiono el esquema tomando la DF3
   - I3(<u>dniPaciente</u>, domicilioPaciente, nombreApellidoPaciente)
   - I4(codHospital, direcciónInternacionPaciente, telefonoInternacionPaciente, <u>dniPaciente</u>, <u>fechaInicioInternacion</u>, cantDiasIntenacion, <u>doctorQueAtiendePaciente</u>, <u>insumoEmpleadoInternación</u>)
   - No se pierde información ya que `I3nI4` es clave en el esquema `I3`
-  - No se pierden DF's ya que: DF3 sigue valiendo en `I3`, DF4, DF5 siguen valiendo en `I4`
-  - Podemos entonces decir que `I3` se encuentra en BCNF ya que solo vale la DF3 y es superclave
-- **El esquema `I4` no se encuentra en BCNF ya que existe al menos la DF4 donde {dniPaciente, fechaInicioInternacion} no es superclave**
+  - No se pierden DF's ya que:
+    - DF3 sigue valiendo en `I3`
+    - DF4, DF5 siguen valiendo en `I4`
+  - Podemos entonces decir que `I3` se encuentra en BCNF ya que el determinante de la DF3 y es superclave en el esquema
+- **El esquema `I4` no se encuentra en BCNF ya que existe al menos el determinante de la DF4 donde {dniPaciente, fechaInicioInternacion} no es superclave**
   - Particiono el esquema tomando la DF4
   - I5(<u>dniPaciente</u>, <u>fechaInicioInternacion</u>, direccionInternacionPaciente, telefonoInternacionPaciente, codHospital, cantDiasInternacion)
   - I6(<u>dniPaciente</u>, <u>fechaInicioInternacion</u>, <u>doctorQueAtiendePaciente</u>, <u>insumoEmpleadoInternación</u>)
   - No se pierde información ya que `I5nI6` es clave en el esquema `I5`
-  - No se pierden DF's ya que: DF4 siguen valiendo en `I5`, DF5 no se pierde ya que puedo encontrar sus determinados a partir de tener el "codHospital"
-  - Podemos entonces decir que `I5` se encuentra en BCNF ya que solo vale la DF4 y es superclave
-  - Podemos entonces decir que `I6` se encuentra en BCNF ya que el conjunto de sus atributos hacen a la CC y cualqueir DF sería trivial
+  - No se pierden DF's ya que:
+    - DF4 siguen valiendo en `I5`
+    - DF5 no se pierde
+      - *(direccionInternacionPaciente, telefonoInternacionPaciente, cantDiasInternacion)* estan en `I5`
+      - *(ciudadHOspital, domicilioHospital)* no se encuentran en `I6` pero no se pierde ya que existe una relacion indirecta a traves de la DF1 donde *(codHospital -> ciudadHOspital, domicilioHospital)*
+  - Podemos entonces decir que `I5` se encuentra en BCNF ya que el determinante de la DF4 es superclave en el esquema
+  - Podemos entonces decir que `I6` se encuentra en BCNF ya que el conjunto de sus atributos hacen a la CC y cualquier DF que se detecte seria trivial
 
 **PARTICIONES EN BCNF Y CLAVE PRIMARIA**
 - I1(<u>codHospital</u>, cantidadHabitaciones, directorHospital, <u>ciudadHospital</u>, <u>domicilioHospital</u>)
@@ -95,4 +103,4 @@ quedaron en 4FN
 - Los esquemas `I7`, `I8` se encuentran en 4NF ya que las unicas DM's que valen en ellos son triviales
 
 ### CONSULTAS
-- consultar cuando no cumple el esquema `I4` porque nose si tengo que aplicar el algoritmo
+- verificar la justificion cuando el esquema `I4` no cumple BCNF, en el caso donde NO SE PIERDE DF5
