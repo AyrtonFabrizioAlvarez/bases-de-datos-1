@@ -83,7 +83,7 @@ quedaron en 4FN
     - DF1, DF3, DF4, DF9 siguen valiendo en `D8`.
     - ¿Se pierde DF10? No, porque:
       - *(plan_id, fec_alta_linea, fec_baja_linea, equipo_id)* puede accederse directamente por `D8`
-      - *(cuil)* no esta en `I8`, sin embargo la DF10 no se pierde ya que existe una relacion indirecta a través de la DF9 donde *(linea_id -> usuario_id)* y a su vez *(usuario_id -> cuil*)
+      - *(cuil)* no esta en `D8`, sin embargo la DF10 no se pierde ya que existe una relacion indirecta a través de la DF9 donde *(linea_id -> usuario_id)* y a su vez *(usuario_id -> cuil*)
       - Entonces la DF10 no se pierde pero se invalida
   - Podemos entonces decir que el esquema `D7` se encuentra en BCNF ya que los determinantes de las DF7 y DF8 son superclave en el esquema
 - **El esquema `D8` no se encuentra en BCNF ya que existe al menos el determinante de la DF3 tal que {modelo_id} no es superclave**
