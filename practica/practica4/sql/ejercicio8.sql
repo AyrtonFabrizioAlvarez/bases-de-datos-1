@@ -3,7 +3,6 @@
 -- APPOINTMENT (patient_id, appointment_date, appointment_duration, contact_phone, observations, payment_card) 
 -- MEDICAL_REVIEW (patient_id, appointment_date, doctor_id)
 -- PRESCRIBED_MEDICATION (patient_id, appointment_date, medication_name)
-
 -- DOCTOR_PER_PATIENTS (patient_id, patient_city, doctor_id)
 -- APPOINTMENTS_PER_PATIENT (idApP, id_patient, count_appointments, last_update, user)
 
