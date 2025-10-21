@@ -1,0 +1,12 @@
+# Entornos virtuales
+.venv/
+venv/
+
+# Archivos temporales
+__pycache__/
+*.pyc
+
+# IDEs
+.vscode/
+.idea/
+
