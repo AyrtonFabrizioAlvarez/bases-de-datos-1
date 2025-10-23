@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS appointments_per_patient;
 
 CREATE TABLE `appointments_per_patient` (
     `idApP` int(11) AUTO_INCREMENT NOT NULL,
-    `id_patient` int(11) NOT NULL,
+    `id_patient` int(11) NOT NULL UNIQUE,
     `count_appointments` int(11),
     `last_update` DATETIME,
     `user` varchar(16) NOT NULL,

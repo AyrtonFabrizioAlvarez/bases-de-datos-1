@@ -9,7 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: appointments
     volumes:
-      - ./scripts:/scripts
+      - ./sql:/sql
       - mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"

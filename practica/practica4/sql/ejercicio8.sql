@@ -18,11 +18,12 @@ CREATE TRIGGER tr_update_appointments_per_patient
 AFTER INSERT ON appointment
 FOR EACH ROW
 BEGIN
-    UPDATE appointments_per_patient
-    SET count_appointments = count_appointments + 1,
+    INSERT INTO appointments_per_patient (id_patient, count_appointments, last_update, user)
+    VALUES (NEW.patient_id, 1, NOW(), CURRENT_USER())
+    ON DUPLICATE KEY UPDATE
+        count_appointments = count_appointments + 1,
         last_update = NOW(),
-        `user` = CURRENT_USER()
-    WHERE id_patient = NEW.patient_id;
+        user = CURRENT_USER();
 END //
 
 DELIMITER ;
